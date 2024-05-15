@@ -1,0 +1,90 @@
+.container {
+  padding: 20rpx;
+}
+.filter-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10rpx 0;
+}
+.filter-bar input,
+.filter-bar .picker,
+.filter-bar button {
+  margin-right: 10rpx;
+  padding: 0 20rpx; /* 调整内边距 */
+  border: 1px solid #ccc;
+  border-radius: 5rpx;
+  height: 80rpx; /* 确保高度一致 */
+  box-sizing: border-box; /* 包含内边距和边框 */
+  display: flex;
+  align-items: center; /* 垂直居中 */
+}
+.filter-bar input,
+.filter-bar .picker {
+  flex: 1;
+}
+
+.picker {
+  margin-right: 0 !important;
+}
+
+.action-bar {
+  justify-content: space-between;
+}
+
+.action-bar button {
+  height: 80rpx;
+  background-color: #007aff;
+  color: white;
+  border: none;
+  border-radius: 5rpx;
+}
+
+.btn-filter {
+  margin-right: 10rpx;
+}
+.btn-upload {
+  margin-left: 10rpx;
+}
+
+.cover-img {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+.lyric-item {
+  border-bottom: 1px solid #ddd;
+  padding: 20rpx 0;
+}
+.lyric-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+}
+.song-name, .singer {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: darkblue;
+}
+.lyric-content {
+  margin-top: 10rpx;
+  color: black;
+}
+.collapsed {
+  overflow: hidden;
+  white-space: wrap;
+  text-overflow: ellipsis;
+}
+.expanded {
+  white-space: normal;
+}
+.operation-bar {
+  margin-top: 10rpx;
+}
+.empty-result {
+  text-align: center;
+  padding: 50rpx;
+  color: #999;
+  font-size: 28rpx;
+}

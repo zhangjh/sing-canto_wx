@@ -1,0 +1,44 @@
+/* pages/user/index.wxss */
+.card-container {
+  margin: 15rpx;
+}
+
+.user-info {
+  /* border: 1px solid green; */
+  display: flex;
+  /* justify-content: flex-start; */
+  align-items: center;
+}
+
+.user {
+  /* border: 1px solid blue; */
+  /* width: 100%; */
+  display: flex;
+  /* flex: row; */
+  /* justify-content: flex-start; */
+  margin-left: 15rpx;
+  /* margin-bottom: 15rpx; */
+}
+
+.user-profile-wrap {
+  /* border: 1px solid red; */
+  /* width: 70%; */
+  /* height: 100%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.icon-geshou {
+  /* border: 1px solid black; */
+  font-size: 4rem;
+  color: #1296db;
+}
+
+.user-id {
+  /* border: 1px solid black; */
+  width: 500rpx;
+  margin-left: 25rpx;
+  word-wrap: break-word; /* CSS3 */
+  overflow-wrap: break-word; /* CSS3.1 */
+}

@@ -1,0 +1,56 @@
+<view class="container">
+  <view class="left-panel">
+    <image src="{{lyrics.curCoverImg}}" class="responsive-img"></image>
+  </view>
+  <view class="right-panel">
+    <view class="evaluate-content" style="visibility: {{visible.evaluate ? 'visible' : 'hidden' }};">
+      <block wx:if="{{evaluateStars > 0}}">
+        <block wx:for="{{evaluateStars}}" wx:key="index">
+          <i class="iconfont icon-xingxing1 star" style="animation-delay: {{index * 0.2}}s;"></i>
+        </block>
+      </block>
+      <block wx:if="{{5-evaluateStars > 0}}">
+        <block wx:for="{{5-evaluateStars}}" wx:key="index">
+          <i class="iconfont icon-xingxing star" style="animation-delay: {{index * 0.2}}s;"></i>
+        </block>
+      </block>
+    </view>
+    <view class="text-content">
+      <button class="arrow left-arrow" 
+      style="display: {{ visible.prev ? 'block' : 'none'}};"
+      bind:tap="goPrev">
+        <i class="iconfont icon-jiantouzuo"></i>
+      </button> 
+      <view class="text">
+        <view class="lyric-pre">{{lyrics.displayed.prev}}</view>
+        <view class="lyric-cur">{{lyrics.displayed.cur}}</view>
+        <view class="lyric-next">{{lyrics.displayed.next}}</view>
+      </view>
+      <button class="arrow right-arrow"
+        style="display: {{ visible.next ? 'block' : 'none'}};"
+         bind:tap="goNext">
+        <i class="iconfont icon-jiantouyou"></i>
+      </button>
+    </view>
+    <view class="buttons">
+      <view style="display: {{ visible.playBtn ? 'block' : 'none'}}"
+        bind:tap="playContent"
+      >
+        <i class="iconfont icon-bofang"></i> 
+      </view>
+      <view style="display: {{ visible.recordBtn ? 'block' : 'none'}}"
+        bind:tap="recordVoice"
+      >
+        <i class="iconfont icon-luyin"></i>
+      </view>
+      <view style="display: {{ visible.voicePrint ? 'block' : 'none'}}"
+        bind:tap="stopRecord"
+      >
+        <i class="iconfont icon-voiceprint {{ playStatus }}" style="animation-delay: 0s;"></i>
+        <i class="iconfont icon-voiceprint {{ playStatus }}" style="animation-delay: 0.5s;"></i>
+        <i class="iconfont icon-voiceprint {{ playStatus }}" style="animation-delay: 1s;"></i>
+        <i class="iconfont icon-voiceprint {{ playStatus }}" style="animation-delay: 1.5s;"></i>
+      </view>
+    </view>
+  </view>
+</view>

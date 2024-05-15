@@ -1,0 +1,48 @@
+<view class="container">
+  <!-- 筛选栏 -->
+  <view class="filter-bar">
+    <input placeholder="歌名" data-field="song" bindinput="handleInputChange" />
+    <input placeholder="歌手" data-field="singer" bindinput="handleInputChange" />
+    <picker mode="selector" range="{{['男', '女']}}" data-field="gender" bindchange="handleFilterChange">
+      <view class="picker">
+        性别: {{searchOptions.gender == 0 ? '男' : '女'}}
+      </view>
+    </picker>
+  </view>
+  <!-- 操作栏 -->
+  <view class="action-bar">
+    <wux-row>
+      <wux-col span="6">
+        <button class="btn-filter" bindtap="applyFilters">筛选</button>
+      </wux-col>
+      <wux-col span="6">
+        <button class="btn-upload" bindtap="uploadLyrics">上传歌词</button>
+      </wux-col>
+    </wux-row>
+    
+  </view>
+  <!-- 歌词列表 -->
+  <block wx:for="{{lyricsList}}" wx:key="index">
+    <view class="lyric-item" bindtap="toggleLyric" data-index="{{index}}">
+      <image class="cover-img" src="{{item.coverImg}}" mode="aspectFill"></image>
+      <view class="lyric-info">
+        <text class="song-name">{{item.songName}}</text>
+        <text class="singer">{{item.singer}}</text>
+      </view>
+      <view class="lyric-content">
+        <block wx:for="{{item.lyrics}}" wx:for-item="line" wx:for-index="lineIndex" wx:key="lineIndex">
+          <text wx:if="{{lineIndex < 3}}">{{line}},</text>
+          <text wx:if="{{lineIndex == 3}}">{{line}}</text>
+          <text wx:if="{{lineIndex === 3}}" bindtap="toggleLyric" data-index="{{index}}">... ...</text>
+        </block>
+      </view>
+      <view class="operation-bar" wx:if="{{item.expanded}}">
+        <button bindtap="goPractice" data-lyrics="{{item.lyrics}}" data-coverimg="{{item.coverImg}}">就练这首了</button>
+      </view>
+    </view>
+  </block>
+  <!-- 空结果提示 -->
+  <block wx:if="{{lyricsList.length === 0}}">
+    <view class="empty-result">没有找到符合条件的结果</view>
+  </block>
+</view>

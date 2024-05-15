@@ -1,0 +1,168 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  /* border: 1px solid green; */
+}
+
+.left-panel, .right-panel {
+  /* border: 1px solid blue; */
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90vh;
+}
+
+.left-panel {
+  /* background-color: #b89a9a; */
+  background-color: lightcoral;
+}
+
+.responsive-img {
+  width: 100%;
+  height: 100% !important;
+  object-fit: cover;
+  /* max-width: 100%; */
+  /* max-height: 100%; */
+  object-fit: cover;
+}
+
+.right-panel {
+  margin-right: 20px;
+  background-color: #2b2b2b;
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.text-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.lyric-pre, .lyric-next {
+  color: lightgray;
+}
+
+.lyric-cur {
+  color: orange;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+.text {
+  padding: 0 40px; /* 根据箭头大小调整 */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.text view {
+  margin: 15px;
+  width: 40vw;
+  /* color: orange; */
+  font-size: large;
+}
+
+.evaluate-content{
+  color: red;
+  font-size: 2rem;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #f2f2f2; */
+  margin: 10px 0;
+}
+
+.evaluate-content i {
+  font-size: 2rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+button.arrow {
+  background-color: #faa56f;
+}
+
+.buttons view {
+  margin: 10rpx;
+}
+
+.buttons view i {
+  font-size: 2rem;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+}
+
+.icon-voiceprint {
+  animation: pulse 2s infinite ease-in-out;
+  font-size: 34px; 
+}
+
+/* 星星动画效果 */
+@keyframes star-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.star {
+  opacity: 0;
+  animation: star-appear 0.5s forwards;
+}
+
+/* 播放原声 */
+.play {
+  color: #faa56f;
+}
+/* 重听跟读 */
+.review {
+  color: #1296db;
+}
+
+.icon-luyin, .icon-bofang {
+  color: #1296db;
+  margin: 0 10rpx;
+}

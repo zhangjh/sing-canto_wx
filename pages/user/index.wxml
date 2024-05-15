@@ -1,0 +1,49 @@
+<!--pages/user/index.wxml-->
+<view class="container">
+  <view>
+    <wux-wing-blank size="large" class="card-container">
+      <wux-card>
+        <view slot="body" class="user-info">
+            <i class="iconfont icon-geshou"></i>
+            <view class="user">
+              <view class="user-profile-wrap">
+                  <text 
+                  class="nickName"
+                  style="display: {{userInfo.nickName ? 'block' : 'none'}}"
+                  >用户昵称：{{userInfo.nickName}}</text>
+                  <text 
+                      class="user-id"
+                      style="display: {{userInfo.nickName ? 'none' : 'block'}}"
+                  >用户ID：{{userInfo.userId}}</text>
+              </view>
+            </view>
+        </view>
+      </wux-card>
+    </wux-wing-blank>
+  
+    <wux-wing-blank size="large" class="card-container">
+      <wux-card>
+        <view slot="body">
+          <wux-cell-group title="反馈和交流">
+            <wux-cell
+                style="background-color: aliceblue;"
+                wux-class="cell"
+                thumb="/resources/qcode.png"
+                title=""
+                extra="扫码加我"
+                hasLine="false"
+                bind:click="openWx"
+            ></wux-cell>
+            <wux-cell
+                wux-class="cell"
+                thumb="/resources/qcode.png"
+                title=""
+                extra="其他小程序"
+                hasLine="false"
+                bind:click="openAds"></wux-cell>
+          </wux-cell-group>
+        </view>
+      </wux-card>
+    </wux-wing-blank>
+  </view>
+</view>
