@@ -1,4 +1,7 @@
 // pages/user/index.js
+const common = require("../../common/common");
+const app = getApp();
+
 Page({
 
   /**
@@ -9,7 +12,15 @@ Page({
       avatar: "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hb6xrvxwc8j203l03kwee.jpg",
       userId: "",
       nickName: "",
-    }
+    },
+    practiceds: [],
+    // practiced: [{
+    //   songId: 2,
+    //   coverImg: "https://img3.kuwo.cn/star/starheads/500/65/42/2631374422.jpg",
+    //   songSummary: "刘德华-十七岁",
+    // }],
+    showPersonalQcode: false,
+    personalQcodeImg: "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hc2v07cwsoj20qe100mzg.jpg"
   },
 
   /**
@@ -30,7 +41,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    const userId = app.globalData.userInfo.userId;
+    this.data.userInfo.userId = userId;
+    this.data.userInfo.nickName = userId;
+    this.setData({
+      userInfo: this.data.userInfo
+    });
+    this.getPracticed();
   },
 
   /**
@@ -66,5 +83,39 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+
+  // 获取跟练记录
+  getPracticed() {
+    const userId = app.globalData.userInfo.userId;
+    common.wxRequest({
+      url: "/canto/lyric/getPracticed?userId=" + userId,
+      cb: ret => {
+        console.log(ret);
+        let practiceds = [];
+        for (let practiced of ret) {
+          const temp = {
+            coverImg: practiced.cover,
+            songId: practiced.id,
+            songSummary: practiced.singer + "-" + practiced.songName
+          };
+          practiceds.push(temp);
+        }
+        console.log(practiceds);
+        this.setData({
+          practiceds
+        });
+      }
+    });
+  },
+  openWx() {
+    this.setData({
+      showPersonalQcode: true
+    });
+  },
+  bindImage() {
+    this.setData({
+      showPersonalQcode: false
+    });
   }
 })

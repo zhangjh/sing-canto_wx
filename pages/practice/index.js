@@ -39,7 +39,8 @@ Page({
       }
     },
     // 评测星级
-    evaluateStars: 0
+    solidStars: [],
+    emptyStars: [],
   },
 
   // 初始进来显示歌词内容
@@ -258,7 +259,7 @@ Page({
     console.log("text:" + text);
     // todo: tts play，没翻页重复听不请求
     common.wxRequest({
-      url: "/voice/play?text=" + text,
+      url: "/canto/voice/play?text=" + text,
       cb: ret => {
         this.hideVoicePrint();
       }
@@ -280,7 +281,10 @@ Page({
       wx.uploadFile({
         filePath: tempFilePath,
         name: 'file',
-        url: common.config.httpDomain + '/voice/evaluateFile',
+        header: {
+          'content-type': 'multipart/form-data'
+        },
+        url: common.config.httpDomain + '/canto/voice/evaluateFile',
         formData: {
           text
         },
@@ -292,8 +296,23 @@ Page({
           if(dataJson.success) {
             const stars = dataJson.data.stars;
             console.log(stars);
+            let solidStars = [];
+            for(let i = 0; i < stars; i++) {
+              solidStars.push({
+                id: i
+              });
+            }
+            let emptyStars = [];
+            for(let j = 5; j > stars; j--) {
+              emptyStars.push({
+                id: 5 - j
+              });
+            }
+            console.log(solidStars);
+            console.log(emptyStars);
             this.setData({
-              evaluateStars: stars
+              solidStars,
+              emptyStars
             });
           }
           // 展示评测等级

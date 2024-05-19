@@ -17,7 +17,10 @@
 
 .left-panel {
   /* background-color: #b89a9a; */
-  background-color: lightcoral;
+  /* background-color: lightcoral; */
+  position: relative;
+  width: 50%;
+  height: 100%;
 }
 
 .responsive-img {
@@ -26,7 +29,9 @@
   object-fit: cover;
   /* max-width: 100%; */
   /* max-height: 100%; */
-  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .right-panel {

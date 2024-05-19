@@ -20,6 +20,31 @@
         </view>
       </wux-card>
     </wux-wing-blank>
+
+    <wux-wing-blank size="large" class="card-container">
+      <wux-card>
+        <view slot="body">
+          <wux-cell-group title="我的跟练">
+            <block wx:if="{{practiceds.length === 0}}">
+              <view class="empty-result">暂无跟练记录，去练习吧</view>
+            </block>
+            <block 
+              wx:for="{{practiceds}}" wx:key="index"
+            >
+              <wux-cell
+                style="background-color: aliceblue;"
+                wux-class="cell"
+                thumb="{{item.coverImg}}"
+                title=""
+                extra="{{item.songSummary}}"
+                hasLine="false"
+                >
+              </wux-cell>
+            </block>
+          </wux-cell-group>
+        </view>
+      </wux-card>
+    </wux-wing-blank>
   
     <wux-wing-blank size="large" class="card-container">
       <wux-card>
@@ -34,16 +59,24 @@
                 hasLine="false"
                 bind:click="openWx"
             ></wux-cell>
-            <wux-cell
+            <!-- <wux-cell
                 wux-class="cell"
                 thumb="/resources/qcode.png"
                 title=""
                 extra="其他小程序"
                 hasLine="false"
-                bind:click="openAds"></wux-cell>
+                bind:click="openAds"></wux-cell> -->
           </wux-cell-group>
         </view>
       </wux-card>
     </wux-wing-blank>
   </view>
+  <view class="image-qcode" style="display: {{showPersonalQcode ? 'block' : 'none'}};">
+        <image src="{{personalQcodeImg}}"
+            mode="aspectFit"
+            bindtap="bindImage"
+            data-type="personalQcode"
+            show-menu-by-longpress
+         />
+    </view>
 </view>

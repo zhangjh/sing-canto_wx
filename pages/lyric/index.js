@@ -44,7 +44,7 @@ Page({
 
   getLyrics: function () {
     common.wxRequest({
-      url: "/lyric/query",
+      url: "/canto/lyric/query",
       data: {
         song: this.data.searchOptions.song,
         singer: this.data.searchOptions.singer,
@@ -56,6 +56,7 @@ Page({
         let lyricsList = [];
         for (let lyric of ret) {
           const temp = {
+            id: lyric.id,
             songName: lyric.song,
             singer: lyric.singer,
             lyrics: this.handleLyric(lyric.lyrics),
@@ -92,11 +93,26 @@ Page({
   goPractice(event) {
     const lyrics = event.currentTarget.dataset.lyrics;
     const coverImg = event.currentTarget.dataset.coverimg;
+    const songId = event.currentTarget.dataset.songid;
     app.globalData.currentLyrics = lyrics;
+    // userId
+    const userId = app.globalData.userInfo.userId;
     // 没有封面图时显示默认
     if(coverImg) {
       app.globalData.curCoverImg = coverImg;
     }
+    // 保存跟练记录
+    common.wxRequest({
+      url: "/canto/lyric/savePracticed",
+      method: "POST",
+      data: {
+        user: userId,
+        songId: songId
+      },
+      cb: ret => {
+        console.log(ret);
+      }
+    });
     wx.switchTab({
       url: `/pages/practice/index`
     });

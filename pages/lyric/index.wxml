@@ -16,7 +16,7 @@
         <button class="btn-filter" bindtap="applyFilters">筛选</button>
       </wux-col>
       <wux-col span="6">
-        <button class="btn-upload" bindtap="uploadLyrics">上传歌词</button>
+        <button class="btn-upload" bindtap="uploadLyrics">检索并上传</button>
       </wux-col>
     </wux-row>
     
@@ -37,7 +37,10 @@
         </block>
       </view>
       <view class="operation-bar" wx:if="{{item.expanded}}">
-        <button bindtap="goPractice" data-lyrics="{{item.lyrics}}" data-coverimg="{{item.coverImg}}">就练这首了</button>
+        <button bindtap="goPractice" 
+          data-lyrics="{{item.lyrics}}" 
+          data-coverimg="{{item.coverImg}}"
+          data-songid="{{item.id}}" >就练这首了</button>
       </view>
     </view>
   </block>

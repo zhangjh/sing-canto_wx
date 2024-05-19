@@ -2,8 +2,76 @@ const debug = true;
 const env = "local";
 
 const config = {
-  httpDomain: env === "prod" ? "" : "http://localhost:8080/canto"
+  httpDomain: env === "prod" ? "" : "http://localhost:8080"
 }
+
+const objectEmpty = function (object) {
+  if(!object) {
+    return true;
+  }
+  return Object.keys(object).length === 0;
+}
+
+const login = function () {
+  return new Promise(resolve => {
+    const userId = wx.getStorageSync('openId');
+    if(userId) {
+      resolve({
+        userId
+      });
+    } else {
+      // 没登录或需要重新登录
+      login2Save(resolve);
+    }
+  });
+}
+
+const login2Save = function(cb) {
+  // 登录后将用户信息存储本地
+  wx.login({
+    success: res => {
+      wxRequest({
+        url: "/wx/getOpenId?jsCode=" + res.code,
+        cb: ret => {
+          wx.setStorageSync('openId', ret.openId);
+          // 保存用户
+          wxRequest({
+            url: "/wx/saveWxUser",
+            data: {
+              userId: ret.openId, 
+              productType: "canto",
+              extType: 1
+            },
+            method: "POST"
+          });
+          if(cb) {
+            cb({
+              userId: ret.openId
+            });
+          }
+        }
+      });
+    },
+    fail: err => {
+      console.error(err);
+    }
+  });
+}
+
+const getUser = function(userId) {
+  return new Promise((resolve) => {
+      if(userId) {
+          wxRequest({
+              url: "/wx/getUser?userId=" + userId,
+              cb: ret => resolve({
+                  userId: ret.extId,
+                  avatar: ret.avatar,
+                  nickName: ret.nickName
+              })
+          });
+      }
+  });
+};
 
 const wxRequest = function(req) {
   let url = req.url;
@@ -101,6 +169,10 @@ const requestRecordPermission = function() {
 
 module.exports = {
   config,
+  objectEmpty,
+  login,
+  login2Save,
+  getUser,
   wxRequest,
   requestRecordPermission,
 };

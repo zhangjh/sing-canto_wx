@@ -1,18 +1,22 @@
 // app.js
+const common = require("./common/common");
+
 App({
   onLaunch() {
-    // 展示本地存储能力
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
     // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    });
+    this.login();
     console.log(this.globalData);
+  },
+  login() {
+    if(common.objectEmpty(this.globalData.userInfo)) {
+      common.login().then(ret => {
+        // 如果没有返回表示当前是登录状态
+        const userId = ret ? ret.userId : wx.getStorageSync('openId');
+        common.getUser(userId).then(user => {
+          this.globalData.userInfo = user;
+        });
+      });
+    }
   },
   globalData: {
     userInfo: null,

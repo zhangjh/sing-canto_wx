@@ -4,13 +4,13 @@
   </view>
   <view class="right-panel">
     <view class="evaluate-content" style="visibility: {{visible.evaluate ? 'visible' : 'hidden' }};">
-      <block wx:if="{{evaluateStars > 0}}">
-        <block wx:for="{{evaluateStars}}" wx:key="index">
+      <block wx:if="{{solidStars.length > 0}}">
+        <block wx:for="{{solidStars}}" wx:key="id">
           <i class="iconfont icon-xingxing1 star" style="animation-delay: {{index * 0.2}}s;"></i>
         </block>
       </block>
-      <block wx:if="{{5-evaluateStars > 0}}">
-        <block wx:for="{{5-evaluateStars}}" wx:key="index">
+      <block wx:if="{{emptyStars.length > 0}}">
+        <block wx:for="{{emptyStars}}" wx:key="id">
           <i class="iconfont icon-xingxing star" style="animation-delay: {{index * 0.2}}s;"></i>
         </block>
       </block>
