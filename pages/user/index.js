@@ -14,11 +14,6 @@ Page({
       nickName: "",
     },
     practiceds: [],
-    // practiced: [{
-    //   songId: 2,
-    //   coverImg: "https://img3.kuwo.cn/star/starheads/500/65/42/2631374422.jpg",
-    //   songSummary: "刘德华-十七岁",
-    // }],
     showPersonalQcode: false,
     personalQcodeImg: "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hc2v07cwsoj20qe100mzg.jpg"
   },

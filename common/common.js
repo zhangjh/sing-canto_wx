@@ -1,8 +1,9 @@
 const debug = true;
 const env = "local";
+const domain = debug ? "http://localhost:8000" : "https://wx.zhangjh.cn:8000";
 
 const config = {
-  httpDomain: env === "prod" ? "" : "http://localhost:8080"
+  httpDomain: env === "prod" ? "" : domain
 }
 
 const objectEmpty = function (object) {
