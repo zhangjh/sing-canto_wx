@@ -1,6 +1,6 @@
 const debug = true;
 const env = "local";
-const domain = debug ? "http://localhost:8000" : "https://wx.zhangjh.cn:8000";
+const domain = debug ? "http://192.168.1.6:8080" : "http://106.14.60.211:8080";
 
 const config = {
   httpDomain: env === "prod" ? "" : domain
@@ -34,7 +34,6 @@ const login2Save = function(cb) {
       wxRequest({
         url: "/wx/getOpenId?jsCode=" + res.code,
         cb: ret => {
-          wx.setStorageSync('openId', ret.openId);
           // 保存用户
           wxRequest({
             url: "/wx/saveWxUser",
@@ -45,6 +44,7 @@ const login2Save = function(cb) {
             },
             method: "POST"
           });
+          wx.setStorageSync('openId', ret.openId);
           if(cb) {
             cb({
               userId: ret.openId

@@ -1,13 +1,25 @@
+<wux-loading id="wux-loading" />
+
 <view class="container">
+    <!-- 全局遮罩 -->
+    <view class="global-mask" wx:if="{{visible.isMaskVisible}}"></view>
   <!-- 筛选栏 -->
   <view class="filter-bar">
-    <input placeholder="歌名" data-field="song" bindinput="handleInputChange" />
-    <input placeholder="歌手" data-field="singer" bindinput="handleInputChange" />
-    <picker mode="selector" range="{{['男', '女']}}" data-field="gender" bindchange="handleFilterChange">
+    <wux-row>
+      <wux-col span="6">
+        <input placeholder="歌名" data-field="song" bindinput="handleInputChange" />
+      </wux-col>
+      <wux-col span="6">
+        <input placeholder="歌手" data-field="singer" bindinput="handleInputChange" />
+      </wux-col>
+    </wux-row>
+   
+    
+    <!-- <picker mode="selector" range="{{['男', '女']}}" data-field="gender" bindchange="handleFilterChange">
       <view class="picker">
         性别: {{searchOptions.gender == 0 ? '男' : '女'}}
       </view>
-    </picker>
+    </picker> -->
   </view>
   <!-- 操作栏 -->
   <view class="action-bar">
@@ -48,4 +60,11 @@
   <block wx:if="{{lyricsList.length === 0}}">
     <view class="empty-result">没有找到符合条件的结果</view>
   </block>
+  <!-- 检索上传弹框 -->
+  <view class="search-lyric" style="visibility: {{visible.searchLyric ? 'visible' : 'hidden'}};">
+    <input placeholder="输入歌名，必填" required data-field="song" bindinput="songInputChange" />
+    <input placeholder="输入歌手名，非必填尽量填" data-field="singer" bindinput="singerInputChange" />
+    <input placeholder="输入专辑名，非必填" data-field="album" bindinput="albumInputChange" />
+    <button class="btn-filter" bindtap="applySearch">检索</button>
+  </view>
 </view>

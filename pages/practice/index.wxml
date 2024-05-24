@@ -1,3 +1,5 @@
+<wux-loading id="wux-loading" />
+
 <view class="container">
   <view class="left-panel">
     <image src="{{lyrics.curCoverImg}}" class="responsive-img"></image>

@@ -1,5 +1,5 @@
 // pages/practice/index.js
-import { $wuxDialog } from '../../miniprogram_npm/wux-weapp/index';
+import { $wuxLoading } from '../../miniprogram_npm/wux-weapp/index';
 const common = require('../../common/common');
 const app = getApp();
 
@@ -251,6 +251,15 @@ Page({
       playStatus: this.data.playStatus
     });
   },
+  showLoading() {
+    this.$wuxLoading = $wuxLoading();
+    this.$wuxLoading.show({
+      text: "评估中，请等待..."
+    });
+  },
+  hideLoading() {
+    this.$wuxLoading.hide();
+  },
 
   // tts播放文本内容
   playContent: function() {
@@ -278,6 +287,7 @@ Page({
       const { tempFilePath } = res;
       const text = this.data.lyrics.content[this.data.lyrics.curIndex];
       // 传输音频给服务端评测
+      this.showLoading();
       wx.uploadFile({
         filePath: tempFilePath,
         name: 'file',
@@ -290,6 +300,7 @@ Page({
         },
         success: ret => {
           console.log(ret);
+          this.hideLoading();
           // 根据星级展示星星
           const data = ret.data;
           const dataJson = JSON.parse(data);
