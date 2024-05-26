@@ -52,6 +52,9 @@ Page({
   },
 
   applyFilters() {
+    this.setData({
+      pageIndex: 1
+    });
     this.getLyrics();
   },
 
@@ -70,8 +73,11 @@ Page({
       },
       cb: ret => {
         console.log(ret);
+        if(common.objectEmpty(ret)) {
+          return;
+        }
         // 组装：songName, singer, lyrics, coverImg, expanded
-        let lyricsList = this.data.lyricsList;
+        let lyricsList = [];
         for (let lyric of ret) {
           const temp = {
             id: lyric.id,
@@ -99,13 +105,6 @@ Page({
   },
 
   uploadLyrics() {
-    // wx.showModal({
-    //   title: '',
-    //   content: '😁唔好意思喎，呢個功能我仲未做好，敬請期待！😁',
-    //   showCancel: false,
-    //   complete: (res) => {
-    //   }
-    // })
     this.data.visible.searchLyric = true;
     this.data.visible.isMaskVisible = true;
     this.setData({
@@ -210,6 +209,10 @@ Page({
                   cover
                 },
                 cb: ret => {
+                  this.setData({
+                    pageIndex: 1
+                  });
+                  this.getLyrics();
                   wx.showModal({
                     title: '',
                     content: '保存成功',

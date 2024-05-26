@@ -94,9 +94,6 @@ const wxRequest = function(req) {
     complete: req.completeCb,
     success: ret => {
       if(ret.statusCode === 200 && ret.data.success) {
-        if(ret.data && ret.data.total) {
-          ret.data.data.total = ret.data.total;
-        }
         if(req.cb) {
           req.cb(ret.data.data);
         }

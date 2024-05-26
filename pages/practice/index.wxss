@@ -12,14 +12,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90vh;
+  /* width: 90vh; */
 }
 
 .left-panel {
   /* background-color: #b89a9a; */
   /* background-color: lightcoral; */
   position: relative;
-  width: 50%;
+  /* width: 60%; */
   height: 100%;
 }
 
@@ -54,10 +54,12 @@
 
 .lyric-pre, .lyric-next {
   color: lightgray;
+  font-size: 0.6rem;
 }
 
 .lyric-cur {
   color: orange;
+  font-size: 0.8rem;
 }
 
 .arrow {
@@ -89,7 +91,7 @@
   margin: 15px;
   width: 40vw;
   /* color: orange; */
-  font-size: large;
+  /* font-size: small; */
 }
 
 .evaluate-content{

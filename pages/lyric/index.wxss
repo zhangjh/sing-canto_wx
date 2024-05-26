@@ -77,6 +77,13 @@
   font-weight: 400;
   color: darkblue;
 }
+.song-name {
+  width: 90%;
+}
+.singer {
+  text-align: center;
+  width: 150rpx;
+}
 .lyric-content {
   margin-top: 10rpx;
   color: black;

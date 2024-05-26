@@ -43,8 +43,8 @@
       </view>
       <view class="lyric-content">
         <block wx:for="{{item.lyrics}}" wx:for-item="line" wx:for-index="lineIndex" wx:key="lineIndex">
-          <text wx:if="{{lineIndex < 3}}">{{line}},</text>
-          <text wx:if="{{lineIndex == 3}}">{{line}}</text>
+          <text wx:if="{{lineIndex < 3}}">{{line}}\n</text>
+          <text wx:if="{{lineIndex == 3}}">{{line}}\n</text>
           <text wx:if="{{lineIndex === 3}}" bindtap="toggleLyric" data-index="{{index}}">... ...</text>
         </block>
       </view>
