@@ -42,6 +42,18 @@
               </wux-cell>
             </block>
           </wux-cell-group>
+          <view 
+            style="visibility: {{visible.prev ? 'visible' : 'hidden'}}"
+            class="arrow left-arrow"
+            bind:tap="goPrev">
+            <i class="iconfont icon-jiantouzuo"></i>
+          </view>
+          <view 
+            style="visibility: {{visible.next ? 'visible' : 'hidden'}};"
+            class="arrow right-arrow"
+            bind:tap="goNext">
+            <i class="iconfont icon-jiantouyou"></i>
+          </view>
         </view>
       </wux-card>
     </wux-wing-blank>

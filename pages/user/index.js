@@ -14,6 +14,11 @@ Page({
       nickName: "",
     },
     practiceds: [],
+    curPageIndex: 1,
+    visible: {
+      prev: false,
+      next: true,
+    },
     showPersonalQcode: false,
     personalQcodeImg: "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hc2v07cwsoj20qe100mzg.jpg"
   },
@@ -59,32 +64,11 @@ Page({
 
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  },
-
   // 获取跟练记录
   getPracticed() {
     const userId = app.globalData.userInfo.userId;
     common.wxRequest({
-      url: "/canto/lyric/getPracticed?userId=" + userId,
+      url: "/canto/lyric/getPracticed?userId=" + userId + "&pageIndex=" + this.data.curPageIndex,
       cb: ret => {
         console.log(ret);
         let practiceds = [];
@@ -97,7 +81,11 @@ Page({
           practiceds.push(temp);
         }
         console.log(practiceds);
+        if(common.objectEmpty(practiceds)) {
+          this.data.visible.next = false;
+        }
         this.setData({
+          visible: this.data.visible,
           practiceds
         });
       }
@@ -108,6 +96,35 @@ Page({
       showPersonalQcode: true
     });
   },
+
+  goPrev(){
+    let curPageIndex = this.data.curPageIndex;
+    if(curPageIndex > 1) {
+      curPageIndex = curPageIndex - 1;
+      if(curPageIndex == 1) {
+        this.data.visible.prev = false;
+        if(!common.objectEmpty(this.data.practiceds)) {
+          this.data.visible.next = true;
+        }
+      }
+      this.setData({
+        visible: this.data.visible,
+        curPageIndex: curPageIndex
+      });
+      this.getPracticed();
+    }
+  },
+  goNext(){
+    let curPageIndex = this.data.curPageIndex;
+    curPageIndex = curPageIndex + 1;
+    this.data.visible.prev = true;
+    this.setData({
+      visible: this.data.visible,
+        curPageIndex: curPageIndex
+    });
+    this.getPracticed();
+  },
+
   bindImage() {
     this.setData({
       showPersonalQcode: false
