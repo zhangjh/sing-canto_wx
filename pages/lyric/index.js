@@ -37,6 +37,26 @@ Page({
     this.getLyrics();
   },
 
+  onShareAppMessage() {
+    const promise = new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          title: '粤语歌曲速成'
+        })
+      }, 2000)
+    })
+    return {
+      promise
+    }
+  },
+
+  onShareTimeline() {
+    return {
+      title: "快来练习你心仪的粤语歌",
+      query: ""
+    };
+  },
+
   handleInputChange(e) {
     const { field } = e.currentTarget.dataset;
     this.setData({
