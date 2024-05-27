@@ -25,7 +25,7 @@
       </button> 
       <view class="text">
         <view class="lyric-pre">{{lyrics.displayed.prev}}</view>
-        <view class="lyric-cur">{{lyrics.displayed.cur}}</view>
+        <rich-text class="lyric-cur" nodes="{{lyrics.displayed.cur}}"></rich-text>
         <view class="lyric-next">{{lyrics.displayed.next}}</view>
       </view>
       <button class="arrow right-arrow"

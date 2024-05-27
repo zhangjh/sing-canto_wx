@@ -220,13 +220,6 @@ Page({
     console.log("reachBottom");
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-    console.log("share");
-  },
-
   showVoicePrint() {
     // 显示波形音纹，隐藏播放和录音按钮
     this.data.visible.playBtn = false;
@@ -259,6 +252,22 @@ Page({
   },
   hideLoading() {
     this.$wuxLoading.hide();
+  },
+  handleWordEvaluate(wordEvaluates){
+    let content = "";
+    for (let wordEvaluate of wordEvaluates) {
+      const accur = wordEvaluate.accuracy;
+      const word = wordEvaluate.word;
+      if(accur < 80) {
+        content += `<span class='under'>${word}</span>`;
+      } else {
+        content += word;
+      }
+    }
+    this.data.lyrics.displayed.cur = content;
+    this.setData({
+      lyrics: this.data.lyrics
+    });
   },
 
   // tts播放文本内容
@@ -306,7 +315,8 @@ Page({
           const dataJson = JSON.parse(data);
           if(dataJson.success) {
             const stars = dataJson.data.stars;
-            console.log(stars);
+            const wordEvaluates = dataJson.data.wordEvaluates;
+            this.handleWordEvaluate(wordEvaluates);
             let solidStars = [];
             for(let i = 0; i < stars; i++) {
               solidStars.push({
@@ -319,8 +329,6 @@ Page({
                 id: 5 - j
               });
             }
-            console.log(solidStars);
-            console.log(emptyStars);
             this.setData({
               solidStars,
               emptyStars

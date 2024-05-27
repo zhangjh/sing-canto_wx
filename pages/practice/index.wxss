@@ -62,6 +62,11 @@
   font-size: 0.8rem;
 }
 
+.lyric-cur .under {
+  color: red;
+  text-decoration: line-through;
+}
+
 .arrow {
   position: absolute;
   top: 50%;
