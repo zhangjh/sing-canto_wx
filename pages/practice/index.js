@@ -84,10 +84,13 @@ Page({
     // 更新内容
     let displayed = this.data.lyrics.displayed;
     let prev = this.data.lyrics.content[prevIndex];
+    // displayed.cur如果包含划线内容，需要去除
+    let cur = displayed.cur;
+    let replacedCur = cur.replace(/<[^>]+>/g, '');
     displayed = {
       prev: prev,
       cur: displayed.prev,
-      next: displayed.cur
+      next: replacedCur
     };
     this.data.lyrics.displayed = displayed;
     this.setData({
@@ -113,9 +116,12 @@ Page({
     this.data.visible.evaluate = false;
     // 更新内容
     let displayed = this.data.lyrics.displayed;
+    // displayed.cur如果包含划线内容，需要去除
+    let cur = displayed.cur;
+    let replacedCur = cur.replace(/<[^>]+>/g, '');
     let next = this.data.lyrics.content[nextIndex];
     displayed = {
-      prev: displayed.cur,
+      prev: replacedCur,
       cur: displayed.next,
       next: next
     };
