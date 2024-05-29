@@ -182,7 +182,7 @@ Page({
   applySearch() {
     console.log(this.data.searchValue);
     // 发起查询
-    if(!this.data.searchValue.song || !this.data.searchValue.singer) {
+    if(!this.data.searchValue.song) {
       wx.showModal({
         title: '参数错误',
         content: '歌名和歌手名必填',
@@ -223,6 +223,7 @@ Page({
                 url: "/canto/lyric/save",
                 method: "POST",
                 data: {
+                  creator: app.globalData.userInfo.userId,
                   song,
                   singer,
                   lyrics: lyric,
