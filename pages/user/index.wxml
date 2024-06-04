@@ -10,7 +10,7 @@
                   <text 
                   class="nickName"
                   style="display: {{userInfo.nickName ? 'block' : 'none'}}"
-                  >用户昵称：{{userInfo.nickName}}</text>
+                  >用户ID：{{userInfo.nickName}}</text>
                   <text 
                       class="user-id"
                       style="display: {{userInfo.nickName ? 'none' : 'block'}}"

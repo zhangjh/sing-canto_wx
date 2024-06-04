@@ -19,7 +19,7 @@ App({
     }
   },
   globalData: {
-    userInfo: null,
+    userInfo: {},
     // 全局记录当前待播放的歌词内容
     currentLyrics: [],
     // 默认封面图
