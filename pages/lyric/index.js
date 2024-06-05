@@ -94,6 +94,10 @@ Page({
       cb: ret => {
         console.log(ret);
         if(common.objectEmpty(ret)) {
+          // 翻页场景，无结果不刷新当前
+          if(this.data.pageIndex > 1) {
+            return;
+          }
           this.setData({
             lyricsList: []
           });
