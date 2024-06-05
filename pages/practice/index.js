@@ -2,6 +2,8 @@
 import { $wuxLoading } from '../../miniprogram_npm/wux-weapp/index';
 const common = require('../../common/common');
 const app = getApp();
+const wxAudio = wx.createInnerAudioContext({});
+const fs = wx.getFileSystemManager();
 
 Page({
 
@@ -38,6 +40,8 @@ Page({
         next: ""
       }
     },
+    // 待转换tts的音频临时文件
+    ttsAudio: "",
     // 评测星级
     solidStars: [],
     emptyStars: [],
@@ -94,6 +98,7 @@ Page({
     };
     this.data.lyrics.displayed = displayed;
     this.setData({
+      ttsAudio: "",
       lyrics: this.data.lyrics,
       visible: this.data.visible
     });
@@ -127,6 +132,7 @@ Page({
     };
     this.data.lyrics.displayed = displayed;
     this.setData({
+      ttsAudio: "",
       lyrics: this.data.lyrics,
       visible: this.data.visible
     });
@@ -281,13 +287,51 @@ Page({
     this.showVoicePrint();
     const text = this.data.lyrics.content[this.data.lyrics.curIndex];
     console.log("text:" + text);
-    // todo: tts play，没翻页重复听不请求
-    common.wxRequest({
-      url: "/canto/voice/play?text=" + text,
-      cb: ret => {
+    // tts play，没翻页重复听不请求
+    if(this.data.ttsAudio) {
+      wxAudio.src = this.data.ttsAudio;
+      wxAudio.play();
+      // 添加音频播放结束的监听器
+      wxAudio.onEnded(() => {
         this.hideVoicePrint();
+      });
+      return;
+    }
+    let previousTarget = this.data.ttsAudio || '';
+    const target = `${wx.env.USER_DATA_PATH}/${Date.now()}.wav`;
+    wx.request({
+      url: common.config.domain + "/canto/voice/play?text=" + text,
+      responseType: 'arraybuffer',
+      success: res => {
+        if(res.statusCode === 200) {
+          fs.writeFile({
+            filePath: target,
+            data: res.data,
+            encoding: 'binary',
+            success: res => {
+              // 删除上一次的临时文件
+              if (previousTarget) {
+                fs.unlink({
+                  filePath: previousTarget,
+                  success: () => {
+                    console.log('上一次的临时文件已删除');
+                  },
+                });
+              }
+              wxAudio.src = target;
+              wxAudio.play();
+              // 添加音频播放结束的监听器
+              wxAudio.onEnded(() => {
+                this.hideVoicePrint();
+              });
+            }
+          });
+          this.setData({
+            ttsAudio: target
+          });
+        }
       }
-    });
+    })
   },
   // 跟读收音
   recordVoice: function() {
@@ -309,7 +353,7 @@ Page({
         header: {
           'content-type': 'multipart/form-data'
         },
-        url: common.config.httpDomain + '/canto/voice/evaluateFile',
+        url: common.config.domain + '/canto/voice/evaluateFile',
         formData: {
           text
         },
