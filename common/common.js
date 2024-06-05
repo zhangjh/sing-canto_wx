@@ -1,9 +1,8 @@
-const debug = true;
-const env = "local";
-const domain = debug ? "http://192.168.1.6:8080" : "http://106.14.60.211:8080";
+const debug = false;
+const domain = debug ? "http://localhost:8080" : "https://wx.zhangjh.cn";
 
 const config = {
-  httpDomain: env === "prod" ? "" : domain
+  domain
 }
 
 const objectEmpty = function (object) {
@@ -77,7 +76,7 @@ const getUser = function(userId) {
 const wxRequest = function(req) {
   let url = req.url;
   if(!url.startsWith("http")) {
-    url = config.httpDomain + url;
+    url = domain + url;
   }
   if(!req.method) {
     req.method = "GET";
