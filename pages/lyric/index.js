@@ -94,6 +94,9 @@ Page({
       cb: ret => {
         console.log(ret);
         if(common.objectEmpty(ret)) {
+          this.setData({
+            lyricsList: []
+          });
           return;
         }
         // 组装：songName, singer, lyrics, coverImg, expanded
