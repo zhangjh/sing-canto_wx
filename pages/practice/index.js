@@ -142,6 +142,41 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {  
+    wx.getSetting({
+      success: res => {
+        if(!res.authSetting['scope.record']) {
+          wx.authorize({
+            scope: 'scope.record',
+            success: () => {
+              console.log("麦克风授权成功");
+            },
+            fail: () => {
+              wx.showModal({
+                title: '',
+                content: '跟读需要授权麦克风权限',
+                complete: (res) => {
+                  if (res.cancel) {
+                    wx.exitMiniProgram();
+                  }
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: settingRes => {
+                        if(settingRes.authSetting['scope.record']) {
+                          console.log("在设置页面授权了麦克风");
+                        } else {
+                          console.log("未授权");
+                          wx.exitMiniProgram();
+                        }
+                      }
+                    });
+                  }
+                }
+              })
+            }
+          })
+        }
+      }
+    });
   },  
 
   startAnimation: function () {  
