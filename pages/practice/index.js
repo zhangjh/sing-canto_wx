@@ -154,6 +154,7 @@ Page({
               wx.showModal({
                 title: '',
                 content: '跟读需要授权麦克风权限',
+                showCancel: false,
                 complete: (res) => {
                   if (res.cancel) {
                     wx.exitMiniProgram();
@@ -294,7 +295,7 @@ Page({
   showLoading() {
     this.$wuxLoading = $wuxLoading();
     this.$wuxLoading.show({
-      text: "评估中，请等待..."
+      text: "..."
     });
   },
   hideLoading() {

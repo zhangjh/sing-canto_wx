@@ -26,6 +26,9 @@ Page({
 
   onLoad: function (options) {
     this.getLyrics();
+    if(!app.globalData.userInfo.userId) {
+      app.login();
+    }
   },
   onShow: function () {
     

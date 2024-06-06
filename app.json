@@ -1,4 +1,9 @@
 {
+  "permission": {
+    "scope.record": {
+      "desc": "用于录音跟读"
+    }
+  },
   "pages": [
     "pages/lyric/index",
     "pages/practice/index",
