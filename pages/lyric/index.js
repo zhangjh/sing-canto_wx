@@ -34,6 +34,17 @@ Page({
     
   },
 
+  // 监听用户下拉动作
+  onPullDownRefresh() {
+    console.log("pullDown");
+    this.data.pageIndex--;
+    if(this.data.pageIndex <= 0) {
+      this.data.pageIndex = 0;
+    }
+    this.getLyrics();
+  },
+
+  // 上拉触底事件
   onReachBottom: function () {
     console.log("reach bottom");
     this.data.pageIndex++;

@@ -322,6 +322,23 @@ Page({
   playContent: function() {
     this.showVoicePrint();
     const text = this.data.lyrics.content[this.data.lyrics.curIndex];
+    if(!text) {
+      wx.showModal({
+        title: '当前无待播放歌词,请先选中',
+        content: '',
+        showCancel: false,
+        complete: (res) => {
+          if (res.confirm) {
+            this.hideVoicePrint();
+          }
+        }
+      })
+      return;
+    }
+    const voiceRole = wx.getStorageSync('activeVoiceRole');
+    if(!voiceRole) {
+      voiceRole = 0;
+    }
     console.log("text:" + text);
     // tts play，没翻页重复听不请求
     if(this.data.ttsAudio) {
@@ -336,7 +353,7 @@ Page({
     let previousTarget = this.data.ttsAudio || '';
     const target = `${wx.env.USER_DATA_PATH}/${Date.now()}.wav`;
     wx.request({
-      url: common.config.domain + "/canto/voice/play?text=" + text,
+      url: common.config.domain + "/canto/voice/play?text=" + text + "&voiceRole=" + voiceRole,
       responseType: 'arraybuffer',
       success: res => {
         if(res.statusCode === 200) {

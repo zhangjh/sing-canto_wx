@@ -25,7 +25,9 @@
     "wux-cell": "/miniprogram_npm/wux-weapp/cell/index",
     "wux-card": "/miniprogram_npm/wux-weapp/card/index",
     "wux-wing-blank": "/miniprogram_npm/wux-weapp/wing-blank/index",
-    "wux-loading": "/miniprogram_npm/wux-weapp/loading"
+    "wux-loading": "/miniprogram_npm/wux-weapp/loading",
+    "wux-radio-group": "/miniprogram_npm/wux-weapp/radio-group",
+    "wux-radio": "/miniprogram_npm/wux-weapp/radio"
   },
   "tabBar": {
     "color": "#e6e6e6",

@@ -19,6 +19,23 @@ Page({
       prev: false,
       next: true,
     },
+    isVoiceRoleFolded: true,
+    voiceRoles: [{
+      // 0:男声，1:女声
+      value: 0,
+      name: "云松",
+      label: "男声语音",
+      color: "dark",
+      thumb: "/resources/male.png"
+    },{
+      value: 1,
+      name: "晓晓",
+      label: "女声语音",
+      color: "dark",
+      thumb: "/resources/female.png"
+    }],
+    // 默认生效是男声
+    activeVoiceRole: 0,
     showPersonalQcode: false,
     personalQcodeImg: "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hc2v07cwsoj20qe100mzg.jpg"
   },
@@ -44,8 +61,11 @@ Page({
     const userId = app.globalData.userInfo.userId;
     this.data.userInfo.userId = userId;
     this.data.userInfo.nickName = userId;
+    // 获取存储在storage里的生效发音人
+    const activeVoiceRole = wx.getStorageSync("activeVoiceRole");
     this.setData({
-      userInfo: this.data.userInfo
+      userInfo: this.data.userInfo,
+      activeVoiceRole: activeVoiceRole ? activeVoiceRole : 0
     });
     this.getPracticed();
   },
@@ -62,6 +82,13 @@ Page({
    */
   onUnload() {
 
+  },
+
+  onChangeVoiceRole(e) {
+    wx.setStorageSync('activeVoiceRole', e.detail.value);
+    this.setData({
+      activeVoiceRole: e.detail.value
+    });
   },
 
   // 获取跟练记录

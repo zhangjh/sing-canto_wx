@@ -57,6 +57,31 @@
         </view>
       </wux-card>
     </wux-wing-blank>
+
+    <wux-wing-blank size="large" class="card-container">
+      <wux-card>
+        <view slot="body">
+          <wux-radio-group
+              name="voiceRole"
+              value="{{activeVoiceRole}}"
+              title="发音人设置"
+              hasLine="{{false}}"
+              bind:change="onChangeVoiceRole"
+            >
+              <block
+                wx:for="{{voiceRoles}}" wx:key="index"
+                >
+                <wux-radio 
+                thumb="{{item.thumb}}"
+                color="{{item.color}}" 
+                title="{{item.name}}"
+                label="{{item.label}}"
+                value="{{item.value}}" />
+              </block>
+          </wux-radio-group>
+        </view>
+      </wux-card>
+    </wux-wing-blank>
   
     <wux-wing-blank size="large" class="card-container">
       <wux-card>
