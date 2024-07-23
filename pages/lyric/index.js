@@ -9,6 +9,7 @@ Page({
       isMaskVisible: false,
     },
     pageIndex: 1,
+    hasMore: true,
     lyricsList: [
     ],
     filteredList: [],
@@ -34,19 +35,16 @@ Page({
     
   },
 
-  // 监听用户下拉动作
-  onPullDownRefresh() {
-    console.log("pullDown");
-    this.data.pageIndex--;
-    if(this.data.pageIndex <= 0) {
-      this.data.pageIndex = 0;
-    }
-    this.getLyrics();
-  },
-
   // 上拉触底事件
   onReachBottom: function () {
+    wx.showToast({
+      title: '刷新中...',
+      icon: 'loading'
+    });
     console.log("reach bottom");
+    if(!this.data.hasMore) {
+      return;
+    }
     this.data.pageIndex++;
     this.getLyrics();
   },
@@ -108,17 +106,13 @@ Page({
       cb: ret => {
         console.log(ret);
         if(common.objectEmpty(ret)) {
-          // 翻页场景，无结果不刷新当前
-          if(this.data.pageIndex > 1) {
-            return;
-          }
           this.setData({
-            lyricsList: []
+            hasMore: false
           });
           return;
         }
         // 组装：songName, singer, lyrics, coverImg, expanded
-        let lyricsList = [];
+        let lyricsList = this.data.lyricsList;
         for (let lyric of ret) {
           const temp = {
             id: lyric.id,
