@@ -95,6 +95,7 @@ Page({
   },
 
   getLyrics: function () {
+    this.showLoading("加载中，请等待...");
     common.wxRequest({
       url: "/canto/lyric/query",
       data: {
@@ -127,6 +128,7 @@ Page({
         this.setData({
           lyricsList
         });
+        this.hideLoading();
       }
     });
   },
@@ -174,7 +176,7 @@ Page({
     }
   },
 
-  showLoading() {
+  showLoading(msg) {
     this.data.visible.searchLyric = false;
     this.data.visible.isMaskVisible = true;
     this.setData({
@@ -182,7 +184,7 @@ Page({
     });
     this.$wuxLoading = $wuxLoading();
     this.$wuxLoading.show({
-      text: "搜索中，请等待..."
+      text: msg
     });
   },
 
@@ -207,7 +209,7 @@ Page({
       })
       return;
     }
-    this.showLoading();
+    this.showLoading("搜索中，请等待...");
     common.wxRequest({
       url: "/canto/lyric/search?song=" + this.data.searchValue.song + "&singer=" + this.data.searchValue.singer + "&album=" + this.data.searchValue.album,
       cb: ret => {
