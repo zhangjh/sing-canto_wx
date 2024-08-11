@@ -37,10 +37,6 @@ Page({
 
   // 上拉触底事件
   onReachBottom: function () {
-    wx.showToast({
-      title: '刷新中...',
-      icon: 'loading'
-    });
     console.log("reach bottom");
     if(!this.data.hasMore) {
       return;
@@ -110,6 +106,7 @@ Page({
           this.setData({
             hasMore: false
           });
+          this.hideLoading();
           return;
         }
         // 组装：songName, singer, lyrics, coverImg, expanded
