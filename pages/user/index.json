@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "wux-landscape": "/miniprogram_npm/wux-weapp/landscape/index"
+  }
 }

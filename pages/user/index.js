@@ -37,14 +37,27 @@ Page({
     // 默认生效是男声
     activeVoiceRole: 0,
     showPersonalQcode: false,
-    personalQcodeImg: "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hc2v07cwsoj20qe100mzg.jpg"
+    personalQcodeImg: "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hc2v07cwsoj20qe100mzg.jpg",
+    // 动态展示其他小程序内容
+    otherContent: [],
+    activeQrcode: '',
+    activeShow: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    // 获取其他小程序
+    common.wxRequest({
+      url: '/wx/getOtherContent',
+      cb: ret => {
+        console.log(ret);
+        this.setData({
+          otherContent: ret
+        });
+      }
+    });
   },
 
   /**
@@ -155,6 +168,20 @@ Page({
   bindImage() {
     this.setData({
       showPersonalQcode: false
+    });
+  },
+  showQrcode(e) {
+    const qrcode = e.target.dataset.qrcode;
+    if(qrcode) {
+      this.setData({
+        activeQrcode: qrcode,
+        activeShow: true
+      });
+    }
+  },
+  closeQrcode() {
+    this.setData({
+      activeShow: false
     });
   }
 })

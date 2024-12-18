@@ -96,24 +96,39 @@
                 hasLine="false"
                 bind:click="openWx"
             ></wux-cell>
-            <!-- <wux-cell
+          </wux-cell-group>
+        </view>
+      </wux-card>
+    </wux-wing-blank>
+
+    <wux-wing-blank size="large" class="card-container" wx:if="{{otherContent.length}}">
+      <wux-card>
+        <view slot="body">
+          <wux-cell-group title="其他小程序">
+            <block wx:for="{{otherContent}}" wx:key="index">
+              <wux-cell
                 wux-class="cell"
                 thumb="/resources/qcode.png"
                 title=""
-                extra="其他小程序"
+                extra="{{item.name}}"
                 hasLine="false"
-                bind:click="openAds"></wux-cell> -->
+                data-qrcode="{{item.qrcode}}"
+                bind:click="showQrcode"></wux-cell>
+            </block>
           </wux-cell-group>
         </view>
       </wux-card>
     </wux-wing-blank>
   </view>
-  <view class="image-qcode" style="display: {{showPersonalQcode ? 'block' : 'none'}};">
-        <image src="{{personalQcodeImg}}"
-            mode="aspectFit"
-            bindtap="bindImage"
-            data-type="personalQcode"
-            show-menu-by-longpress
-         />
-    </view>
+  <wux-landscape visible="{{showPersonalQcode}}" bind:close="bindImage" maskClosable="true">
+    <image src="{{personalQcodeImg}}"
+        mode="aspectFit"
+        show-menu-by-longpress
+      />
+  </wux-landscape>
+  <wux-landscape visible="{{activeShow}}" bind:close="closeQrcode" maskClosable="true">
+    <image src="{{activeQrcode}}" 
+      mode="aspectFit" 
+      show-menu-by-longpress/>
+  </wux-landscape>
 </view>
