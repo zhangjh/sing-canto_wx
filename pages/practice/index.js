@@ -25,7 +25,7 @@ Page({
     playStatus: "",
     // 歌词内容，最多同时显示三条
     lyrics: {
-      content: ["测试歌词第一句","测试歌词第二句","测试歌词第三句","测试歌词第四句","测试歌词第五句"],
+      content: [""],
       // 当前封面图
       curCoverImg: "",
       // 当前显示内容的索引
@@ -209,6 +209,12 @@ Page({
    */
   onShow() {
     console.log("onShow");
+    // 清空显示状态
+    this.setData({
+      ttsAudio: "",
+      solidStars: [],
+      emptyStars: []
+    });
     const curLyrics = app.globalData.currentLyrics;
     // console.log(curLyrics);
     const curCoverImg = app.globalData.curCoverImg;
@@ -335,7 +341,7 @@ Page({
       })
       return;
     }
-    const voiceRole = wx.getStorageSync('activeVoiceRole');
+    let voiceRole = wx.getStorageSync('activeVoiceRole');
     if(!voiceRole) {
       voiceRole = 0;
     }
